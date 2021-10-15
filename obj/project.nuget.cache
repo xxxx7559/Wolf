@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "72jyKOZjO71Ot19trOiva5iFavG+e7gCUH73rvmChMe+Ma0qWG/LmWc1UQcGXP4qyJizACcVarfH1B6CFwQAXw==",
+  "success": true,
+  "projectFilePath": "D:\\GitHub\\Wolf\\SignalRSample.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Kever\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

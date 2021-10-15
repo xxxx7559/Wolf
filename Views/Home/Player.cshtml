@@ -1,0 +1,62 @@
+﻿<script>
+  $(function () {
+    var userType = null;
+
+    var nickname = prompt('請輸入你的暱稱');
+
+    //設定SignalR的連線資訊
+    var connection = new signalR.HubConnectionBuilder()
+      .withUrl("/sampleHub")
+    .build();
+
+    //開啟ReceiveMessage的通道，Server只要呼叫ReceiveMessage，這邊就會接著執行function
+    connection.on("ReceiveMessage", function (user) {
+        $("#EmpName").text(user);
+    });
+    //開啟SetEmpIdentity的通道，Server只要呼叫SetEmpIdentity，這邊就會接著執行function
+    connection.on("SetEmpIdentity", function (Identity) {
+      console.log(Identity);
+      $("#EmpIdentity").text(Identity);
+    });
+
+
+    //與Server建立連線
+    connection.start().then(function () {
+      //呼叫Hub中的SendMessage方法，並傳入參數（參數數量要相等，不然會報錯）
+      connection.invoke("SendUserName", nickname).catch(function (err) {
+        return console.error(err.toString());
+      });
+
+    }).catch(function (err) {
+      return console.error(err.toString());
+    });
+
+    @* $("#ST").click(function () {
+      connection.invoke("GetEmpIdentity").catch(function (err) {
+        return console.error(err.toString());
+      });
+    }); *@
+  });
+</script>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>玩家</h3>
+    </div>
+    <div class="col-sm-6">
+      <h3 id="EmpName"></h3>
+    </div>
+    <div class="col-sm-6">
+      <h3>身份</h3>
+    </div>
+    <div class="col-sm-6">
+      <h3 id="EmpIdentity"></h3>
+    </div>
+    @* <div class="col-sm-6">
+      <h3 id="ST">抽牌</h3>
+    </div> *@
+  </div>
+</div>
